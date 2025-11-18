@@ -1,0 +1,186 @@
+body {
+    margin: 0;
+    background: rgba(220, 219, 219, 0.492);
+}
+
+.container {
+    height: 1000px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(10, auto);
+    gap: 6px;
+
+    grid-template-areas:
+        "hed hed hed"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side rooms rooms"
+        "side foot foot"
+    ;
+}
+
+.container div {
+    margin: 10px;
+    background: white;
+    border-radius: 10px;
+}
+
+.header {
+    grid-area: hed;
+    padding-left: 30px;
+}
+
+.header img {
+    height: 40px;
+}
+
+.header h1 {
+    color: #9B5DE0;
+}
+
+.header span {
+    color: #4E56C0;
+}
+
+.header button {
+    color: white;
+    border: none;
+    background: #4E56C0;
+    border-radius: 7px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.header button:hover {
+    background-color: #343a96;
+}
+
+.sidebar {
+    grid-area: side;
+}
+
+.sidebar h2 {
+    color: #4E56C0;
+    text-align: center;
+}
+
+.side-content {
+    padding: 20px;
+    text-align: center;
+    font-size: xx-large;
+    font-weight: bolder;
+    color: rgba(0, 0, 0, 0.122);
+}
+
+.rooms {
+
+    grid-area: rooms;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(4, auto);
+    grid-template-areas:
+        "conf conf"
+        "recep ser"
+        "sec perso"
+        "arch arch";
+    gap: 10px;
+    padding: 10px;
+    grid-auto-rows: 200px;
+}
+.rooms div img{
+    object-fit: cover;
+    width: 100%;
+    height: 160px;
+    display: block;
+   border-radius:18px;
+ 
+}
+
+.rooms div {
+   
+    background: #343b9620;
+    border-radius: 20px;
+   
+}
+
+.conference {
+    grid-area: conf;
+    border: 0.1px solid #343a96;
+    cursor: pointer;
+}
+
+.conference:hover {
+    background-color: rgba(255, 0, 0, 0.116);
+    border: 0.1px solid red;
+    transform: translateY(-4px);
+}
+
+.reception {
+    grid-area: recep;
+    border: 0.1px solid #343a96;
+    cursor: pointer;
+}
+.reception:hover{
+    background-color: rgba(255, 0, 0, 0.116);
+    border: 0.1px solid red;
+    transform: translateY(-4px);
+}
+
+
+.serveurs {
+    grid-area: ser;
+    border: 0.1px solid #343a96;
+    cursor: pointer;
+}
+.serveurs:hover{
+     background-color: rgba(255, 0, 0, 0.116);
+    border: 0.1px solid red;
+    transform: translateY(-4px);
+}
+
+.securite {
+    grid-area: sec;
+    border: 0.1px solid #343a96;
+    cursor: pointer;
+}
+.securite:hover{
+     background-color: rgba(255, 0, 0, 0.116);
+    border: 0.1px solid red;
+    transform: translateY(-4px);
+}
+
+.personnel {
+    grid-area: perso;
+    border: 0.1px solid #343a96;
+    cursor: pointer;
+}
+.personnel:hover{
+     background-color: rgba(255, 0, 0, 0.116);
+    border: 0.1px solid red;
+    transform: translateY(-4px);
+}
+
+.archives {
+    grid-area: arch;
+    border: 0.1px solid #343a96;
+    cursor: pointer;
+}
+.archives:hover{
+     background-color: rgba(255, 0, 0, 0.116);
+    border: 0.1px solid red;
+    transform: translateY(-4px);
+}
+.rooms h3{
+padding-left: 15px;
+text-align: center;
+}
+
+.footer {
+    grid-area: foot;
+}
