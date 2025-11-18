@@ -16,8 +16,7 @@
         <div class="header">
             <h1><span><i class="ri-building-2-fill"></i></span>
                 WorkSphere<span> Staff </span>Manager</h1>
-            <button><i class="ri-add-box-fill"></i>
-                Add New Worker</button>
+            <button id="addWorker"><i class="ri-user-add-line"></i> Add New Worker</button>
         </div>
 
         <div class="sidebar">
@@ -30,38 +29,102 @@
         <div class="rooms">
             <div class="conference">
                 <img src="/asset/conference.png" alt="">
-               <h3> <i class="ri-team-line"></i>
-                Conference Room</h3>
+                <h3> Conference Room</h3>
             </div>
 
             <div class="reception">
                 <img src="/asset/reception.png" alt="">
-                <h3> <i class="ri-team-line"></i>
-                 Reception</h3>
+                <h3>Reception</h3>
             </div>
-            <div class="serveurs"><h3> <i class="ri-team-line"></i>
-                Servers Room</h3>
+            <div class="serveurs">
+                <img src="/asset/servers.png" alt="">
+                <h3> Servers Room</h3>
             </div>
             <div class="securite">
                 <img src="/asset/cctv.png" alt="">
-                <h3> <i class="ri-team-line"></i>
-               Security Room</h3>
+                <h3>Security Room</h3>
             </div>
             <div class="personnel">
                 <img src="/asset/staff.png" alt="">
-                <h3> <i class="ri-team-line"></i>
-                Staff Room</h3>
+                <h3>Staff Room</h3>
             </div>
             <div class="archives">
-                <h3> <i class="ri-team-line"></i>
-                Archives Room</h3>
+                <img src="/asset/archive.png" alt="">
+                <h3>Archives Room</h3>
             </div>
         </div>
-
         <div class="footer"></div>
-
     </div>
 
+    <div  id="Modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4><i class="ri-user-line"></i> Add New Worker</h4>
+            </div>
+
+            <div class="modal-grid">
+                <div class="form-group">
+                    <label for="fullName">Full Name :</label>
+                    <input type="text" placeholder="Enter you name">
+                </div>
+                <div class="form-group">
+                    <label>Role :</label>
+                    <select>
+                        <option selected disabled>select the Role</option>
+                        <option>Manager</option>
+                        <option>Receptionist</option>
+                        <option>IT Technician</option>
+                        <option>Security Officer</option>
+                        <option>Cleaning Staff</option>
+                        <option>Accountant</option>
+                        <option>HR Specialist</option>
+                        <option>Sales Representative</option>
+                        <option>Developer</option>
+                    </select>
+                </div>
+
+                <div class="form-group form-full-width">
+                    <label for="photoUrl">Photo URL</label>
+                    <input type="text" placeholder="https://example.com/photo.jpg">
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email :</label>
+                    <input type="email" placeholder="yourname@worksphere.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number :</label>
+                    <input type="tel" placeholder="212-0000-000">
+                </div>
+            </div>
+
+            <div class="modal-experience">
+                <div class="experience-header">
+                    <p><i class="ri-briefcase-5-line">
+                            Professional Experiences</i></p>
+                    <button id="addExperience" class="add-experience-btn">
+                        <i class="ri-add-line"></i> Add
+                    </button>
+                </div>
+
+                <div class="experience-card">
+                    <div class="card-header">
+                        <label>Expérience 1</label>
+                        <button class="delete-exp-btn"><i class="ri-delete-bin-line"></i></button>
+                    </div>
+                    <input type="text" placeholder="Company Name">
+                    <input type="text" placeholder="Position Held">
+                    <input type="text" placeholder="Duration (ex:2020-2023)">
+                </div>
+
+
+            <div class="modal-btn">
+                <button id="cancelBtn" class="cancelBtn">Cancel</button>
+                <button  class="addBtn">confirm</button>
+            </div>
+        </div>
+    </div>
+ </div>
     <script src="script.js"></script>
 </body>
 

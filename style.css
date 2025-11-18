@@ -34,6 +34,8 @@ body {
 .header {
     grid-area: hed;
     padding-left: 30px;
+    padding-bottom: 30px;
+    text-align: center;
 }
 
 .header img {
@@ -55,10 +57,174 @@ body {
     border-radius: 7px;
     height: 40px;
     cursor: pointer;
+    text-align: center;
 }
 
 .header button:hover {
     background-color: #343a96;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.439);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: none;
+}
+
+.modal-content {
+    background-color: white;
+    border-radius: 12px;
+    width: 600px;
+    max-height: 90vh;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px 10px;
+}
+
+.modal-header h4 {
+    margin: 0;
+    color: #4E56C0;
+    gap: 8px;
+}
+
+.modal-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px 30px;
+    padding: 10px 30px 20px;
+}
+
+.form-full-width {
+    grid-column: 1/-1;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+
+.modal-content input,
+.modal-content select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #4E56C0;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 15px;
+    background-color: rgba(27, 13, 133, 0.115);
+}
+
+.modal-experience {
+    padding: 0 30px 20px;
+}
+
+.experience-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px 0;
+    color: #333;
+    font-weight: 600;
+}
+
+.experience-header p {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #4E56C0;
+}
+
+.add-experience-btn {
+    background-color: #4E56C0;
+    color: white;
+    border: none;
+    padding: 6px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    gap: 5px;
+    text-align: center;
+}
+
+.add-experience-btn:hover {
+    background-color: green;
+}
+
+.experience-card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.card-header label {
+    font-weight: bold;
+    color: #555;
+}
+
+.delete-exp-btn {
+    background: none;
+    border: none;
+    color: red;
+    cursor: pointer;
+    font-size: 18px;
+    padding: 5px;
+}
+
+.experience-card input {
+    margin-bottom: 10px;
+}
+
+.modal-btn {
+    text-align: end;
+    padding: 20px 30px;
+}
+
+.cancelBtn,
+.addBtn {
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    border: none;
+    font-weight: 600;
+    color: white;
+}
+
+
+.addBtn {
+    background-color: #43A047;
+}
+.cancelBtn{
+    background-color: rgba(255, 0, 0, 0.778);
+}
+.addBtn:hover {
+    background-color: #29652c;
+}
+.cancelBtn:hover{
+    background-color: rgba(161, 8, 8, 0.778);
 }
 
 .sidebar {
@@ -75,7 +241,7 @@ body {
     text-align: center;
     font-size: xx-large;
     font-weight: bolder;
-    color: rgba(0, 0, 0, 0.122);
+    color: rgba(0, 0, 0, 0.22);
 }
 
 .rooms {
@@ -93,20 +259,30 @@ body {
     padding: 10px;
     grid-auto-rows: 200px;
 }
-.rooms div img{
+
+.rooms div img {
     object-fit: cover;
     width: 100%;
     height: 160px;
-    display: block;
-   border-radius:18px;
- 
+    border-radius: 18px;
 }
 
 .rooms div {
-   
     background: #343b9620;
     border-radius: 20px;
-   
+}
+
+.rooms h3 {
+    position: relative;
+    color: white;
+    top: -46px;
+    background-color: #343b9652;
+    border-radius: 17px;
+}
+
+.rooms h3:hover {
+
+    color: #343a96;
 }
 
 .conference {
@@ -116,8 +292,8 @@ body {
 }
 
 .conference:hover {
-    background-color: rgba(255, 0, 0, 0.116);
-    border: 0.1px solid red;
+    background-color: #d68fee1c;
+    border: 0.1px solid #D78FEE;
     transform: translateY(-4px);
 }
 
@@ -126,9 +302,10 @@ body {
     border: 0.1px solid #343a96;
     cursor: pointer;
 }
-.reception:hover{
-    background-color: rgba(255, 0, 0, 0.116);
-    border: 0.1px solid red;
+
+.reception:hover {
+    background-color: #d68fee1c;
+    border: 0.1px solid #D78FEE;
     transform: translateY(-4px);
 }
 
@@ -138,9 +315,10 @@ body {
     border: 0.1px solid #343a96;
     cursor: pointer;
 }
-.serveurs:hover{
-     background-color: rgba(255, 0, 0, 0.116);
-    border: 0.1px solid red;
+
+.serveurs:hover {
+    background-color: #d68fee1c;
+    border: 0.1px solid #D78FEE;
     transform: translateY(-4px);
 }
 
@@ -149,9 +327,10 @@ body {
     border: 0.1px solid #343a96;
     cursor: pointer;
 }
-.securite:hover{
-     background-color: rgba(255, 0, 0, 0.116);
-    border: 0.1px solid red;
+
+.securite:hover {
+    background-color: #d68fee1c;
+    border: 0.1px solid #D78FEE;
     transform: translateY(-4px);
 }
 
@@ -160,9 +339,10 @@ body {
     border: 0.1px solid #343a96;
     cursor: pointer;
 }
-.personnel:hover{
-     background-color: rgba(255, 0, 0, 0.116);
-    border: 0.1px solid red;
+
+.personnel:hover {
+    background-color: #d68fee1c;
+    border: 0.1px solid #D78FEE;
     transform: translateY(-4px);
 }
 
@@ -171,16 +351,31 @@ body {
     border: 0.1px solid #343a96;
     cursor: pointer;
 }
-.archives:hover{
-     background-color: rgba(255, 0, 0, 0.116);
-    border: 0.1px solid red;
+
+.archives:hover {
+    background-color: #d68fee1c;
+    border: 0.1px solid #D78FEE;
     transform: translateY(-4px);
 }
-.rooms h3{
-padding-left: 15px;
-text-align: center;
+
+.rooms h3 {
+    padding-left: 15px;
+    text-align: center;
 }
 
 .footer {
     grid-area: foot;
+}
+@media  (max-width:1023px){
+ .rooms {
+    display: grid;
+    grid-template-areas: 
+    "conf conf"
+    "recep recep"
+    "ser ser"
+    "sec sec"
+    "perso perso"
+    "arch arch"
+    ;
+ }   
 }
