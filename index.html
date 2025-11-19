@@ -19,7 +19,7 @@
             <button id="addWorker"><i class="ri-user-add-line"></i> Add New Worker</button>
         </div>
 
-        <div class="sidebar">
+        <div id="sidebar" class="sidebar">
             <h2><i class="ri-group-line"></i> Unassigned Staff</h2>
             <div class="side-content"> <i class="ri-group-line"></i><br>
                 <p>No unassigned staff</p>
@@ -30,46 +30,55 @@
             <div class="conference">
                 <img src="/asset/conference.png" alt="">
                 <h3> Conference Room</h3>
+                <button class="addToZone">&#43;</button>
             </div>
 
             <div class="reception">
                 <img src="/asset/reception.png" alt="">
                 <h3>Reception</h3>
+                <button class="addToZone">&#43;</button>
             </div>
             <div class="serveurs">
                 <img src="/asset/servers.png" alt="">
                 <h3> Servers Room</h3>
+                <button class="addToZone">&#43;</button>
             </div>
             <div class="securite">
                 <img src="/asset/cctv.png" alt="">
                 <h3>Security Room</h3>
+                <button class="addToZone">&#43;</button>
             </div>
             <div class="personnel">
                 <img src="/asset/staff.png" alt="">
                 <h3>Staff Room</h3>
+                <button class="addToZone">&#43;</button>
             </div>
             <div class="archives">
                 <img src="/asset/archive.png" alt="">
                 <h3>Archives Room</h3>
+                <button class="addToZone">&#43;</button>
             </div>
         </div>
-        <div class="footer"></div>
     </div>
 
-    <div  id="Modal" class="modal">
+
+
+    <div id="Modal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
                 <h4><i class="ri-user-line"></i> Add New Worker</h4>
             </div>
 
+            <form id="formAddWorker">
+
             <div class="modal-grid">
                 <div class="form-group">
                     <label for="fullName">Full Name :</label>
-                    <input type="text" placeholder="Enter you name">
+                    <input id="name" class="modal-input" type="text" placeholder="Enter you name">
                 </div>
                 <div class="form-group">
                     <label>Role :</label>
-                    <select>
+                    <select id="role" class="modal-input">
                         <option selected disabled>select the Role</option>
                         <option>Manager</option>
                         <option>Receptionist</option>
@@ -84,17 +93,17 @@
                 </div>
 
                 <div class="form-group form-full-width">
-                    <label for="photoUrl">Photo URL</label>
-                    <input type="text" placeholder="https://example.com/photo.jpg">
+                    <label  for="photoUrl">Photo URL</label>
+                    <input id="url" class="modal-input" type="text" placeholder="https://example.com/photo.jpg">
                 </div>
 
                 <div class="form-group">
-                    <label for="email">Email :</label>
-                    <input type="email" placeholder="yourname@worksphere.com">
+                    <label  for="email">Email :</label>
+                    <input id="email" class="modal-input" type="email" placeholder="yourname@worksphere.com">
                 </div>
                 <div class="form-group">
                     <label for="phone">Phone Number :</label>
-                    <input type="tel" placeholder="212-0000-000">
+                    <input id="phone" class="modal-input" type="tel" placeholder="212-0000-000">
                 </div>
             </div>
 
@@ -107,24 +116,30 @@
                     </button>
                 </div>
 
-                <div  id="experienceCard" class="experience-card">
+                <div id="experienceCard" class="experience-card">
                     <div class="card-header">
                         <label>Expérience 1</label>
-                        <button class="delete-exp-btn"><i class="ri-delete-bin-line"></i></button>
+                        <button id="edeletBtn" class="delete-exp-btn"></button>
                     </div>
-                    <input type="text" placeholder="Company Name">
-                    <input type="text" placeholder="Position Held">
-                    <input type="text" placeholder="Duration (ex:2020-2023)">
+                    <input class="modal-input" type="text" placeholder="Company Name">
+                    <input class="modal-input" type="text" placeholder="Position Held">
+                    <input class="modal-input" type="text" placeholder="Duration (ex:2020-2023)">
                 </div>
 
 
-            <div class="modal-btn">
-                <button id="cancelBtn" class="cancelBtn">Cancel</button>
-                <button  class="addBtn">confirm</button>
+                <div class="modal-btn">
+                    <button id="cancelBtn" class="cancelBtn">Cancel</button>
+                    <button type="submit" id="confirmBtn" class="addBtn">Confirm</button>
+
+                </div>
             </div>
+
+</form>
+
+
+
         </div>
     </div>
- </div>
     <script src="script.js"></script>
 </body>
 
