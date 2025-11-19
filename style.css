@@ -82,6 +82,7 @@ body {
     border-radius: 12px;
     width: 600px;
     max-height: 90vh;
+    overflow-y: scroll;
 }
 
 .modal-header {

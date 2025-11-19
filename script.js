@@ -11,7 +11,11 @@ cancelBtn.addEventListener('click',()=>{
 });
 
 const addExperienceBtn = document.getElementById('addExperience')
+const experienceCard = document.getElementById('experienceCard')
+
 
 addExperienceBtn.addEventListener('click',()=>{
-    
+    const newExperience =document.createElement("div")
+    newExperience.innerHTML = "<p>test</p>"
+    experienceCard .appendChild(newExperience);
 })
