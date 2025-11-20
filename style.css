@@ -8,7 +8,7 @@ body {
     width: 100%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(9, auto);
+    grid-template-rows: repeat(9, 1fr);
     gap: 6px;
 
     grid-template-areas:
@@ -104,6 +104,22 @@ body {
     padding: 10px 30px 20px;
 }
 
+.addToZone {
+    color: white;
+    border: none;
+    background: #4E56C0;
+    border-radius: 7px;
+    height: 20px;
+    cursor: pointer;
+    text-align: center;
+    position: relative;
+    top: -210px;
+}
+
+.addToZone:hover{
+background: rgb(181, 51, 51);
+}
+
 .form-full-width {
     grid-column: 1/-1;
 }
@@ -189,7 +205,7 @@ body {
     border: none;
     color: red;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 24px;
     padding: 5px;
 }
 
@@ -217,13 +233,16 @@ body {
 .addBtn {
     background-color: #43A047;
 }
-.cancelBtn{
+
+.cancelBtn {
     background-color: rgba(255, 0, 0, 0.778);
 }
+
 .addBtn:hover {
     background-color: #29652c;
 }
-.cancelBtn:hover{
+
+.cancelBtn:hover {
     background-color: rgba(161, 8, 8, 0.778);
 }
 
@@ -236,19 +255,21 @@ body {
     text-align: center;
 }
 
-.side-content  {
+.side-content {
     padding: 20px;
     text-align: center;
     font-size: xx-large;
     font-weight: bolder;
     color: rgba(0, 0, 0, 0.22);
-    
+
 }
-.worker-info{
+
+.worker-info {
     color: red;
-    cursor: pointer;  
+    cursor: pointer;
     text-align: start;
 }
+
 .worker-card {
     display: flex;
     align-items: center;
@@ -257,8 +278,9 @@ body {
     border-radius: 10px;
     padding: 10px;
     margin: 8px 0;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
 .worker-img {
     width: 45px;
     height: 45px;
@@ -266,11 +288,13 @@ body {
     object-fit: cover;
     border: 2px solid #ddd;
 }
+
 .worker-name {
     font-size: 15px;
     font-weight: 600;
     margin: 0;
 }
+
 .worker-role {
     font-size: 13px;
     color: #777;
@@ -282,7 +306,7 @@ body {
     grid-area: rooms;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: repeat(4, auto);
+    grid-template-rows: repeat(4, 1fr);
     grid-template-areas:
         "conf conf"
         "recep ser"
@@ -399,16 +423,61 @@ body {
 .footer {
     grid-area: foot;
 }
-@media  (max-width:1023px){
- .rooms {
-    display: grid;
-    grid-template-areas: 
-    "conf conf"
-    "recep recep"
-    "ser ser"
-    "sec sec"
-    "perso perso"
-    "arch arch"
-    ;
- }   
+
+/* modal for  info of the workers */
+.modal2{
+     display: none; 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0,0,0,0.44);
+    justify-content: center;
+    align-items: center;
+}
+
+.worker-details .details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 15px;
+}
+
+.modal2-content{
+    background-color: white;
+    padding: 30px;
+    border-radius: 10px;
+    text-align: center;
+      color: #4E56C0;
+}
+
+.details-img {
+    width: 150px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto;
+    border: 3px solid #ddd;
+}
+
+.worker-details p {
+    padding: 5px;
+    font-size: 15px;
+    margin: 5px 0;
+    
+}
+
+@media (max-width:1023px) {
+    .rooms {
+        display: grid;
+        grid-template-areas:
+            "conf conf"
+            "recep recep"
+            "ser ser"
+            "sec sec"
+            "perso perso"
+            "arch arch"
+        ;
+    }
 }

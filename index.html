@@ -30,33 +30,33 @@
             <div class="conference">
                 <img src="/asset/conference.png" alt="">
                 <h3> Conference Room</h3>
-                <button class="addToZone">&#43;</button>
+                <button class="addToZone">&#43; assign an employee</button>
             </div>
 
             <div class="reception">
                 <img src="/asset/reception.png" alt="">
                 <h3>Reception</h3>
-                <button class="addToZone">&#43;</button>
+                <button class="addToZone">&#43; assign an employee</button>
             </div>
             <div class="serveurs">
                 <img src="/asset/servers.png" alt="">
                 <h3> Servers Room</h3>
-                <button class="addToZone">&#43;</button>
+                <button class="addToZone">&#43; assign an employee</button>
             </div>
             <div class="securite">
                 <img src="/asset/cctv.png" alt="">
                 <h3>Security Room</h3>
-                <button class="addToZone">&#43;</button>
+                <button class="addToZone">&#43; assign an employee</button>
             </div>
             <div class="personnel">
                 <img src="/asset/staff.png" alt="">
                 <h3>Staff Room</h3>
-                <button class="addToZone">&#43;</button>
+                <button class="addToZone">&#43; assign an employee</button>
             </div>
             <div class="archives">
                 <img src="/asset/archive.png" alt="">
                 <h3>Archives Room</h3>
-                <button class="addToZone">&#43;</button>
+                <button class="addToZone">&#43; assign an employee</button>
             </div>
         </div>
     </div>
@@ -111,35 +111,45 @@
                 <div class="experience-header">
                     <p><i class="ri-briefcase-5-line">
                             Professional Experiences</i></p>
-                    <button id="addExperience" class="add-experience-btn">
-                        <i class="ri-add-line"></i> Add
+                    <button id="addExperience" class="add-experience-btn" type="button">
+                        <i class="ri-add-line"></i> Add Experience
                     </button>
                 </div>
 
                 <div id="experienceCard" class="experience-card">
                     <div class="card-header">
-                        <label>Expérience 1</label>
-                        <button id="edeletBtn" class="delete-exp-btn"></button>
+                      
+                        <!-- <button id="edeletBtn" class="delete-exp-btn"></button> -->
                     </div>
-                    <input class="modal-input" type="text" placeholder="Company Name">
-                    <input class="modal-input" type="text" placeholder="Position Held">
-                    <input class="modal-input" type="text" placeholder="Duration (ex:2020-2023)">
+                    
                 </div>
 
 
                 <div class="modal-btn">
-                    <button id="cancelBtn" class="cancelBtn">Cancel</button>
-                    <button type="submit" id="confirmBtn" class="addBtn">Confirm</button>
+                    <button id="cancelBtn" class="cancelBtn" type="button">Cancel</button>
+                    <button type="submit" id="confirmBtn" class="addBtn" type="button">Confirm</button>
 
                 </div>
             </div>
 
 </form>
-
-
-
         </div>
     </div>
+
+    <!-- workers info modal -->
+<div id="detailsModal" class="modal2">
+    <div class="modal2-content worker-details">
+        <div class="modal-header">
+            <h4><i class="ri-user-line"></i> Worker Details</h4>
+        </div>
+
+        <div id="detailsBody"></div>
+
+        <div class="modal-btn">
+            <button id="closeDetailsBtn" type="button" class="cancelBtn">Close</button>
+        </div>
+    </div>
+</div>
     <script src="script.js"></script>
 </body>
 

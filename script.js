@@ -1,58 +1,64 @@
-const addWorkerBtn = document.getElementById('addWorker')
+const addWorkerBtn = document.getElementById('addWorker');
 const Modal = document.getElementById('Modal');
-const cancelBtn = document.getElementById('cancelBtn')
-let workers = []
+const cancelBtn = document.getElementById('cancelBtn');
+let workers = [];
+let experience = 0;
 
-addWorkerBtn.addEventListener('click', () => {
-    Modal.style.display = 'flex'
-});
+// Open/close modal
+addWorkerBtn.addEventListener('click', () => Modal.style.display = 'flex');
+cancelBtn.addEventListener('click', () => Modal.style.display = 'none');
 
-cancelBtn.addEventListener('click', () => {
-    Modal.style.display = "none"
-});
-
-
-
-const addExperienceBtn = document.getElementById('addExperience')
-const experienceCard = document.getElementById('experienceCard')
-
-let num = 2;
+// Experience section
+const addExperienceBtn = document.getElementById('addExperience');
+const experienceCard = document.getElementById('experienceCard');
 
 addExperienceBtn.addEventListener('click', () => {
-    const newExperience = document.createElement("div")
+    experience++;
+    const newExperience = document.createElement("div");
+    newExperience.classList.add("boxExperience");
     newExperience.innerHTML = `
-        <div class="boxExperience">
-            <div class="card-header">
-                <label>Expérience ${num++}</label>
-                <button class="delete-exp-btn"><i class="ri-delete-bin-line"></i></button>
-            </div>
-            <input type="text" placeholder="Company Name">
-            <input type="text" placeholder="Position Held">
-            <input type="text" placeholder="Duration (ex:2020-2023)">
-        </div>`;
+        <div class="card-header">
+            <label>Experience ${experience}</label>
+            <button class="delete-exp-btn" type="button"><i class="ri-delete-bin-line"></i></button>
+        </div>
+        <input id="company${experience}" type="text" placeholder="Company Name">
+        <input id="role${experience}" type="text" placeholder="Position Held">
+        <input id="from${experience}" type="date">
+        <input id="to${experience}" type="date">
+    `;
     experienceCard.appendChild(newExperience);
-})
+});
 
-experienceCard.addEventListener('click', (e) => {
+// Delete experience
+experienceCard.addEventListener('click', e => {
     if (e.target.closest('.delete-exp-btn')) {
         const card = e.target.closest('.boxExperience');
         if (card) card.remove();
     }
 });
 
+// Register worker
+const formAddWorker = document.getElementById("formAddWorker");
+const nom = document.getElementById("name");
+const Role = document.getElementById("role");
+const Url = document.getElementById("url");
+const Email = document.getElementById("email");
+const Phone = document.getElementById("phone");
 
-const sidebar = document.getElementById('sidebar')
-const sideContent = document.querySelector('.side-content');
-
-const addWorker = document.querySelector("#formAddWorker")
-const nom = document.querySelector("#name")
-const Role = document.querySelector('#role')
-const Url = document.querySelector('#url')
-const Email = document.querySelector('#email')
-const Phone = document.querySelector('#phone')
-
-addWorker.addEventListener("submit", function(evt) {
+formAddWorker.addEventListener("submit", function(evt) {
     evt.preventDefault();
+
+    const exps = [];
+    for (let i = 1; i <= experience; i++) {
+        const companyValue = document.getElementById(`company${i}`)?.value || "";
+        const roleValue = document.getElementById(`role${i}`)?.value || "";
+        const fromValue = document.getElementById(`from${i}`)?.value || "";
+        const toValue = document.getElementById(`to${i}`)?.value || "";
+
+        if (companyValue.trim() !== "" || roleValue.trim() !== "") {
+            exps.push({ company: companyValue, role: roleValue, from: fromValue, to: toValue });
+        }
+    }
 
     const worker = {
         name: nom.value.trim(),
@@ -60,47 +66,65 @@ addWorker.addEventListener("submit", function(evt) {
         url: Url.value.trim(),
         email: Email.value.trim(),
         phone: Phone.value.trim(),
+        experiences: exps,
         zone: null
-    }
+    };
 
     workers.push(worker);
-
     renderWorkers();
-
-    
     Modal.style.display = "none";
+    formAddWorker.reset();
+});
 
-    
-    addWorker.reset();
-})
-
+// Render workers in sidebar
+const sideContent = document.querySelector('.side-content');
 
 function renderWorkers() {
-
-   
     sideContent.innerHTML = "";
-
     if (workers.length === 0) {
-        sideContent.innerHTML = `
-            <i class="ri-group-line"></i><br>
-            <p>No unassigned staff</p>
-        `;
+        sideContent.innerHTML = `<i class="ri-group-line"></i><br><p>No unassigned staff</p>`;
         return;
     }
 
-    workers.forEach(worker => {
+    workers.forEach((worker, index) => {
         const card = document.createElement("div");
         card.classList.add("worker-card");
-
         card.innerHTML = `
-             <img src="${worker.url}" alt="Photo of ${worker.name}" class="worker-img">
-            
+            <img src="${worker.url}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';" 
+                 class="worker-img">
             <div class="worker-info">
                 <p class="worker-name">${worker.name}</p>
                 <p class="worker-role">${worker.role}</p>
             </div>
-        `
-
+        `;
+        card.addEventListener("click", () => openWorkerInfoModal(index));
         sideContent.appendChild(card);
     });
 }
+
+// Worker info modal
+const workerInfoModal = document.getElementById("detailsModal");
+const workerInfoBody = document.getElementById("detailsBody");
+const closeWorkerInfoBtn = document.getElementById("closeDetailsBtn");
+
+function openWorkerInfoModal(index) {
+    const worker = workers[index];
+    workerInfoBody.innerHTML = `
+        <div class="worker-details-view">
+            <img src="${worker.url}" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png';" class="worker-img">
+            <p><strong>Name:</strong> ${worker.name}</p>
+            <p><strong>Role:</strong> ${worker.role}</p>
+            <p><strong>Email:</strong> ${worker.email}</p>
+            <p><strong>Phone:</strong> ${worker.phone}</p>
+            <h4>Experiences:</h4>
+            <ul>
+                ${worker.experiences.map(exp => `<li>${exp.company} - ${exp.role} (${exp.from} → ${exp.to})</li>`).join('')}
+            </ul>
+        </div>
+    `;
+    workerInfoModal.style.display = "flex";
+}
+
+closeWorkerInfoBtn.addEventListener("click", () => workerInfoModal.style.display = "none");
+
+
