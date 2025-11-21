@@ -45,7 +45,7 @@ const Url = document.getElementById("url");
 const Email = document.getElementById("email");
 const Phone = document.getElementById("phone");
 
-formAddWorker.addEventListener("submit", function(evt) {
+formAddWorker.addEventListener("submit", function (evt) {
     evt.preventDefault();
 
     const exps = [];
@@ -61,6 +61,7 @@ formAddWorker.addEventListener("submit", function(evt) {
     }
 
     const worker = {
+        id: Date.now(),
         name: nom.value.trim(),
         role: Role.value.trim(),
         url: Url.value.trim(),
@@ -81,12 +82,16 @@ const sideContent = document.querySelector('.side-content');
 
 function renderWorkers() {
     sideContent.innerHTML = "";
-    if (workers.length === 0) {
+    const unassigned = workers.filter(w => w.zone === null);
+
+    if (unassigned.length === 0) {
         sideContent.innerHTML = `<i class="ri-group-line"></i><br><p>No unassigned staff</p>`;
         return;
     }
 
-    workers.forEach((worker, index) => {
+    unassigned.forEach((worker) => {
+
+        const index = workers.indexOf(worker);
         const card = document.createElement("div");
         card.classList.add("worker-card");
         card.innerHTML = `
@@ -96,8 +101,22 @@ function renderWorkers() {
                 <p class="worker-name">${worker.name}</p>
                 <p class="worker-role">${worker.role}</p>
             </div>
+             <button class="delete-exp-btn" type="button"><i class="ri-delete-bin-line"></i></button>
         `;
         card.addEventListener("click", () => openWorkerInfoModal(index));
+
+
+        card.querySelector(".delete-exp-btn").addEventListener("click", (e) => {
+            e.stopPropagation();
+
+
+            workers.splice(index, 1);
+
+
+            renderWorkers();
+
+
+        });
         sideContent.appendChild(card);
     });
 }
@@ -126,5 +145,109 @@ function openWorkerInfoModal(index) {
 }
 
 closeWorkerInfoBtn.addEventListener("click", () => workerInfoModal.style.display = "none");
+
+
+
+// Assign panel
+const assignPanel = document.getElementById("assignPanel");
+const assignList = document.getElementById("assignList");
+const cancelAssign = document.getElementById("cancelAssign");
+
+let selectedRoom = null;
+
+// CLICK on assign an employee
+document.querySelectorAll(".addToZone").forEach(btn => {
+    btn.addEventListener("click", (e) => {
+
+        selectedRoom = e.target.closest("div");
+
+        showAssignPanel(e.target);
+    });
+});
+
+
+function showAssignPanel(buttonElement) {
+
+    const rect = buttonElement.getBoundingClientRect();
+    assignPanel.style.top = rect.bottom + window.scrollY + "px";
+    assignPanel.style.left = rect.left + window.scrollX + "px";
+
+    loadUnassignedWorkers();
+
+    assignPanel.classList.remove("hidden");
+}
+
+// Load all unassigned (zone === null)
+function loadUnassignedWorkers() {
+    assignList.innerHTML = "";
+
+    const unassigned = workers.filter(w => w.zone === null);
+
+    if (unassigned.length === 0) {
+        assignList.innerHTML = `<p>No available workers</p>`;
+        return;
+    }
+
+    unassigned.forEach((worker, i) => {
+
+        const div = document.createElement("div");
+        div.classList.add("assign-item");
+
+        div.innerHTML = `
+            <p>${worker.name} (${worker.role})</p>
+           <button class="addBtn" data-worker-id="${worker.id}">Assign</button>
+        `;
+
+        assignList.appendChild(div);
+    });
+}
+
+// Close panel
+cancelAssign.addEventListener("click", () => {
+    assignPanel.classList.add("hidden");
+});
+
+
+// Add worker to room
+assignList.addEventListener("click", (e) => {
+    if (e.target.matches(".addBtn")) {
+        const workerId = parseInt(e.target.dataset.workerId);
+        const worker = workers.find(w => w.id === workerId);
+
+        if (!worker) return;
+        const roomName = selectedRoom.querySelector("h3").innerText;
+        worker.zone = roomName;
+
+        let assignedDiv = selectedRoom.querySelector(".assigned-workers");
+        if (!assignedDiv) {
+            assignedDiv = document.createElement("div");
+            assignedDiv.classList.add("assigned-workers");
+            selectedRoom.appendChild(assignedDiv);
+        }
+
+        const span = document.createElement("span");
+        span.innerText = worker.name;
+        span.classList.add("room-worker");
+        span.dataset.id = worker.id;
+        assignedDiv.appendChild(span);
+
+
+        renderWorkers();
+
+        // Hide panel
+        assignPanel.classList.add("hidden");
+    }
+});
+
+document.addEventListener("click", function (e) {
+    if (e.target.classList.contains("room-worker")) {
+        const id = parseInt(e.target.dataset.id);
+        const worker = workers.find(w => w.id === id);
+        if (worker) openWorkerInfoModal(workers.indexOf(worker));
+    }
+});
+
+openWorkerInfoModal(index)
+
 
 
