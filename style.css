@@ -320,14 +320,14 @@ background: rgb(181, 51, 51);
 .rooms div img {
     object-fit: cover;
     width: 100%;
-    height: 160px;
+    height: 190px;
     border-radius: 18px;
 }
 
-.rooms div {
+/* .rooms div {
     background: #343b9620;
     border-radius: 20px;
-}
+} */
 
 .rooms h3 {
     position: relative;
@@ -502,8 +502,9 @@ background: rgb(181, 51, 51);
     color: white;
 
     border-radius: 4px;
-    margin: 2px 2px 0 0;
+    /* margin: 2px 2px 0 0; */
     font-size: 20px;
+    padding: 5px;
 }
 
 
@@ -511,6 +512,8 @@ background: rgb(181, 51, 51);
 @media (max-width:1023px) {
     .rooms {
         display: grid;
+        grid-template-columns: repeat(2,1fr);
+        grid-template-rows: repeat(6,1fr);
         grid-template-areas:
             "conf conf"
             "recep recep"
