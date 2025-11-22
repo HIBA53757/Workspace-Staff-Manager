@@ -12,11 +12,11 @@ const zoneLimits = {
     archives: 8
 };
 
-// Open/close modal
+
 addWorkerBtn.addEventListener('click', () => Modal.style.display = 'flex');
 cancelBtn.addEventListener('click', () => Modal.style.display = 'none');
 
-// Experience section
+// experience oprn
 const addExperienceBtn = document.getElementById('addExperience');
 const experienceCard = document.getElementById('experienceCard');
 
@@ -41,7 +41,7 @@ addExperienceBtn.addEventListener('click', () => {
     experienceCard.appendChild(newExperience);
 });
 
-// Delete experience
+// delete experience
 experienceCard.addEventListener('click', e => {
     if (e.target.closest('.delete-exp-btn')) {
         const card = e.target.closest('.boxExperience');
@@ -49,7 +49,7 @@ experienceCard.addEventListener('click', e => {
     }
 });
 
-// Register worker
+// register worker
 const formAddWorker = document.getElementById("formAddWorker");
 const nom = document.getElementById("name");
 const Role = document.getElementById("role");
@@ -57,8 +57,43 @@ const Url = document.getElementById("url");
 const Email = document.getElementById("email");
 const Phone = document.getElementById("phone");
 
+// regex
+const nameRegex = /^[A-Za-zÀ-ÖØ-öø-ÿ\s'-]{3,}$/;
+const emailRegex = /^[\w.-]+@[\w-]+\.[A-Za-z]{2,}$/;
+const phoneRegex = /^(0\d{9}|\+212\d{9})$/
+const urlRegex = /^(https?:\/\/)[^\s]+$/;
+
+
 formAddWorker.addEventListener("submit", function (evt) {
     evt.preventDefault();
+
+
+    if (!nameRegex.test(nom.value.trim())) {
+        alert("Please enter a valid full name (letters only, min 3).");
+        return;
+    }
+
+    if (Role.value === "select the Role") {
+        alert("Please select a valid role.");
+        return;
+    }
+
+    if (!emailRegex.test(Email.value.trim())) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+
+   if (!phoneRegex.test(Phone.value.trim())) {
+    alert("Phone format invalid. Example: 0612345678 or +212612345678");
+    return;
+}
+
+
+    if (Url.value.trim() !== "" && !urlRegex.test(Url.value.trim())) {
+        alert("Image URL is invalid. Must start with http:// or https://");
+        return;
+    }
+
 
     const exps = [];
     for (let i = 1; i <= experience; i++) {
@@ -68,10 +103,25 @@ formAddWorker.addEventListener("submit", function (evt) {
         const toValue = document.getElementById(`to${i}`)?.value || "";
 
         if (companyValue.trim() !== "" || roleValue.trim() !== "") {
-            exps.push({ company: companyValue, role: roleValue, from: fromValue, to: toValue });
+
+    if (fromValue && toValue) {
+
+        const start = new Date(fromValue);
+        const end = new Date(toValue);
+
+        if (start > end) {
+            alert(`The start date cannot be later than the end date for Experience ${i}.`);
+            return;
         }
     }
-
+    exps.push({
+        company: companyValue,
+        role: roleValue,
+        from: fromValue,
+        to: toValue
+    });
+}
+    }
     const worker = {
         id: Date.now(),
         name: nom.value.trim(),
@@ -89,7 +139,7 @@ formAddWorker.addEventListener("submit", function (evt) {
     formAddWorker.reset();
 });
 
-// Render workers in sidebar
+//render workers in sidebar
 const sideContent = document.querySelector('.side-content');
 
 function renderWorkers() {
@@ -129,7 +179,7 @@ function renderWorkers() {
     });
 }
 
-// Worker info modal
+// worker info modal
 const workerInfoModal = document.getElementById("detailsModal");
 const workerInfoBody = document.getElementById("detailsBody");
 const closeWorkerInfoBtn = document.getElementById("closeDetailsBtn");
@@ -156,14 +206,14 @@ closeWorkerInfoBtn.addEventListener("click", () => workerInfoModal.style.display
 
 
 
-// Assign panel
+// asign panel
 const assignPanel = document.getElementById("assignPanel");
 const assignList = document.getElementById("assignList");
 const cancelAssign = document.getElementById("cancelAssign");
 
 let selectedRoom = null;
 
-// CLICK on assign an employee
+// click on assign an employee
 document.querySelectorAll(".addToZone").forEach(btn => {
     btn.addEventListener("click", (e) => {
 
@@ -185,7 +235,7 @@ function showAssignPanel(buttonElement) {
     assignPanel.classList.remove("hidden");
 }
 
-// Load all unassigned (zone === null)
+
 function loadUnassignedWorkers() {
     assignList.innerHTML = "";
 
@@ -200,7 +250,7 @@ function loadUnassignedWorkers() {
 
     unassigned.forEach((worker) => {
 
-        let autorise = false; // declare autorise
+        let autorise = false;
 
         switch (worker.role) {
             case "Manager":
@@ -222,7 +272,7 @@ function loadUnassignedWorkers() {
                 autorise = !["reception", "serveurs", "securite"].includes(roomId);
         }
 
-        if (!autorise) return; // skip unauthorized workers
+        if (!autorise) return;
 
         const div = document.createElement("div");
         div.classList.add("assign-item");
@@ -235,19 +285,18 @@ function loadUnassignedWorkers() {
     });
 }
 
-// Close panel
 cancelAssign.addEventListener("click", () => {
     assignPanel.classList.add("hidden");
 });
 
 
-// Add worker to room
+// add worker to room
 assignList.addEventListener("click", (e) => {
     if (e.target.matches(".addBtn")) {
         const workerId = parseInt(e.target.dataset.workerId);
         const worker = workers.find(w => w.id === workerId);
-
         if (!worker) return;
+
         const roomName = selectedRoom.querySelector("h3").innerText;
 
         let assignedDiv = selectedRoom.querySelector(".assigned-workers");
@@ -257,40 +306,32 @@ assignList.addEventListener("click", (e) => {
             selectedRoom.appendChild(assignedDiv);
         }
 
-        const currentCount = assignedDiv ? assignedDiv.querySelectorAll(".room-worker").length : 0;
-        const limit = zoneLimits[roomName.toLowerCase().replace(" ", "")]; // adapter à tes clés zoneLimits
+        const currentCount = assignedDiv.querySelectorAll(".room-worker").length;
+        const limit = zoneLimits[roomName.toLowerCase().replace(" ", "")];
         if (currentCount >= limit) {
-            alert(`the zone "${roomName}" is full (limite : ${limit})`);
+            alert(`The zone "${roomName}" is full (limit: ${limit})`);
             return;
         }
 
 
         worker.zone = roomName;
 
-         assignedDiv = selectedRoom.querySelector(".assigned-workers");
-        if (!assignedDiv) {
-            assignedDiv = document.createElement("div");
-            assignedDiv.classList.add("assigned-workers");
-            selectedRoom.appendChild(assignedDiv);
-        }
-
         const span = document.createElement("span");
-        span.innerText = worker.name;
         span.classList.add("room-worker");
         span.dataset.id = worker.id;
         span.innerHTML = `
-    ${worker.name}
-    <button class="remove-worker" data-id="${worker.id}">×</button>
-`
+            ${worker.name}
+            <button class="remove-worker" data-id="${worker.id}">×</button>
+        `;
         assignedDiv.appendChild(span);
 
+        updateZoneHighlight();
 
         renderWorkers();
-
-        // Hide panel
         assignPanel.classList.add("hidden");
     }
 });
+
 
 document.addEventListener("click", function (e) {
     if (e.target.classList.contains("remove-worker")) return;
@@ -318,6 +359,28 @@ document.addEventListener("click", function (e) {
         e.target.closest(".room-worker").remove();
 
         renderWorkers();
+        updateZoneHighlight();
     }
 });
 
+function updateZoneHighlight() {
+    const highlightZones = ["reception", "serveurs", "securite", "archives"];
+
+    document.querySelectorAll(".zone").forEach(zone => {
+        const roomName = zone.dataset.zone;
+
+        if (!highlightZones.includes(roomName)) {
+            zone.classList.remove("zone-empty");
+            return;
+        }
+
+        const assignedDiv = zone.querySelector(".assigned-workers");
+        const assignedWorkers = assignedDiv ? assignedDiv.querySelectorAll(".room-worker").length : 0;
+
+        if (assignedWorkers === 0) {
+            zone.classList.add("zone-empty");
+        } else {
+            zone.classList.remove("zone-empty");
+        }
+    });
+}
